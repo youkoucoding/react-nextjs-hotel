@@ -9,3 +9,5 @@ function Tag(props) {
     </span>
   );
 }
+
+export default Tag;

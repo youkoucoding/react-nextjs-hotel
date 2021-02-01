@@ -6,7 +6,7 @@ function Grade(props) {
   return Array.apply(null).map((e, i) => (
     <svg
       key={i}
-      className={`h-4 w-4 fill-current ${props.grade > i ? `text-${props.color}-500` : `text-${props.background}-400`
+      className={`h-4 w-4 fill-current ${props.rating > i ? `text-${props.color}-500` : `text-${props.background}-400`
         }`}
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"

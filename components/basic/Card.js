@@ -38,7 +38,7 @@ function Card(props) {
             <span className="ml-1 text-sm text-gray-600">/wk</span>
           </div>
           <div className="mt-2 flex items-center text-sm text-gray-600">
-            <Grade rating={property.grade} color={'teal'} background={'grey'} />
+            <Grade rating={property.rating} color={'teal'} background={'grey'} />
             <span className="ml-2">{property.reviewCount} reviews</span>
           </div>
         </div>

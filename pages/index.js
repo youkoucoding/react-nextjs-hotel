@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Layout from '../components/basic/Layout';
+import Card from '../components/basic/Card';
 
 export default function Home() {
   return (
@@ -8,47 +9,41 @@ export default function Home() {
         <title>新たな旅</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <div className="flex flex-col items-center justify-center flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-pink-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-        </p>
-
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-
-
+      <div className="min-h-screen bg-gray-200 antialiased xl:flex xl:flex-col xl:h-screen">
+        <div className="xl:flex-1 xl:flex xl:overflow-y-hidden">
+          <main className="py-6 xl:flex-1 xl:overflow-x-hidden">
+            {locations.map(location => (
+              <div className="{'mt-6': i > 0}">
+                <div className="px-4 xl:px-8">
+                  <h3 className="text-gray-900 text-xl">{location.title}</h3>
+                  <p className="text-gray-600">{location.description}</p>
+                </div>
+                <div className="mt-6 sm:overflow-x-auto sm:overflow-y-hidden">
+                  <div className="px-4 sm:inline-flex sm:pt-2 sm:pb-8 xl:px-8">
+                    {location.properties.map((property, index) => (
+                      <div
+                        className={`sm:mt-0 sm:w-80 sm:flex-shrink-0 ${index > 0 ? 'mt-10 sm:ml-4' : ''
+                          }`}
+                      >
+                        <Card property={property} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </main>
         </div>
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  // Server-side requests are mocked by `mocks/server.js`.
+  const res = await fetch('https://my.backend/hotel');
+  const locations = await res.json();
+  console.log(locations);
+
+  return { props: { locations } };
 }
