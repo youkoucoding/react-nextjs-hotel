@@ -1,84 +1,56 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
-import Link from '@material-ui/core/Link';
-import Toolbar from '@material-ui/core/Toolbar';
-import HomeWorkIcon from '@material-ui/icons/HomeWork';
-import IconButton from '@material-ui/core/IconButton';
-import AppBar from './AppBar';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from '../styles/theme';
+import Link from "next/link";
+import { useState } from "react";
+import cn from "classnames";
 
-const useStyles = makeStyles(() => ({
-  homeButton: {
-    marginLeft: theme.spacing(3),
-    marginLeft: '30px',
-  },
-  toolbar: {
-    flexGrow: 2,
-  },
-  rightLink: {
-    fontSize: 16,
-    color: theme.palette.common.white,
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(5),
-  },
-  linkSecondary: {
-    color: theme.palette.secondary.main,
-  },
-}));
-
-function Header() {
-  const classes = useStyles();
+export default function Header() {
+  const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 
   return (
-    <ThemeProvider theme={theme}>
-      <AppBar position='fixed'>
-        <Toolbar>
-          <Link
-            variant='h6'
-            underline='none'
-            color='inherit'
-            href='/'
-            className={classes.toolbar}
-          >
-            <IconButton
-              edge='start'
-              className={classes.homeButton}
-              color='secondary'
-            >
-              <HomeWorkIcon />
-            </IconButton>
+    <header className="bg-white-600 shadow-2xl">
+      <div className="flex flex-wrap items-center justify-between lg:container px-4 py-6 mx-auto md:flex-no-wrap md:px-6">
+        <div className="flex items-center">
+          <Link href="/">
+            <a className="flex text-lg md:text-xl font-mono ml-3 text-white">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+              {'   '}Home
+            </a>
           </Link>
-          <Link
-            color='inherit'
-            variant='h6'
-            underline='hover'
-            className={classes.rightLink}
-            href='/login'
+        </div>
+
+        <button
+          className="flex items-center  px-3 py-2 text-white border border-white rounded md:hidden"
+          onClick={() => setMobileMenuIsOpen(!mobileMenuIsOpen)}
+        >
+          <svg
+            className="w-3 h-3 fill-current"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            ログイン
-          </Link>
-          <Link
-            variant='h6'
-            underline='hover'
-            className={clsx(classes.rightLink, classes.linkSecondary)}
-            href='/signup'
-          >
-            登録
-          </Link>
-        </Toolbar>
-      </AppBar>
-    </ThemeProvider>
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
+        </button>
+
+        <ul
+          className={cn(
+            "md:flex flex-col md:flex-row md:items-center md:justify-center text-sm font-mono w-full md:w-auto",
+            mobileMenuIsOpen ? `block` : `hidden`
+          )}
+        >
+          {[
+            { title: "ホームページ", route: "/" },
+            { title: "ログイン", route: "/login" },
+            { title: "登録", route: "/signin" },
+            { title: "お問い合わせ", route: "/about" },
+          ].map(({ route, title }) => (
+            <li className="mt-3 md:mt-0 md:ml-6" key={title}>
+              <Link href={route}>
+                <a className="block text-white">{title}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </header>
   );
 }
-
-Header.propTypes = {
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object.isRequired,
-};
-
-export default Header;
