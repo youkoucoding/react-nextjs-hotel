@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Layout from '../components/basic/Layout';
-import Card from '../components/basic/Card';
+import Layout from 'components/basic/Layout';
+import Card from 'components/basic/Card';
 
 export default function Home({ locations }) {
   return (

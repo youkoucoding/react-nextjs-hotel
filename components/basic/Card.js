@@ -1,6 +1,6 @@
 import React from 'react';
-import Tag from './Tag';
-import Grade from './Grade';
+import Tag from 'components/basic/Tag';
+import Grade from 'components/basic/Grade';
 
 function formattedPrice(price) {
   // Intl.NumberFormat オブジェクトは、言語に依存した数値書式を可能にするオブジェクトのコンストラクターです。
