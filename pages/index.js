@@ -3,7 +3,6 @@ import Layout from '../components/basic/Layout';
 import Card from '../components/basic/Card';
 
 export default function Home({ locations }) {
-  // console.log(locations);
   return (
     <Layout className='flex flex-col items-center justify-center min-h-screen py-0'>
       <Head>
